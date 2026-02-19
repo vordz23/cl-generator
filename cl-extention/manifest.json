@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "CL Generator",
+  "version": "1.0.0",
+  "description": "AI-powered cover letter generator for Upwork, OnlineJobs.ph, and Indeed",
+
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+
+  "host_permissions": [
+    "https://generativelanguage.googleapis.com/*",
+    "https://openrouter.ai/*"
+  ],
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.upwork.com/jobs/*",
+        "https://www.upwork.com/ab/proposals/job/*/apply*",
+        "https://www.upwork.com/freelance-jobs/apply/*",
+        "https://www.upwork.com/nx/proposals/job/*/apply*",
+        "https://www.onlinejobs.ph/jobseekers/job/*",
+        "https://www.indeed.com/viewjob*",
+        "https://www.indeed.com/jobs*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "options_page": "options.html",
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

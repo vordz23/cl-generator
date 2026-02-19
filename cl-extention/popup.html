@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CL Generator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="popup-body">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-logo">
+      <span class="logo-icon">✨</span>
+      <h1>CL Generator</h1>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn settings-btn" id="open-settings" title="Settings">⚙️</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- Job Description Card -->
+    <div class="glass-card fade-in stagger-1" id="job-card">
+      <div class="glass-card-header">
+        <span class="section-label"><span class="icon">📋</span> Job Description</span>
+        <span class="badge hidden" id="platform-badge"></span>
+      </div>
+      <div id="job-content">
+        <div class="job-empty" id="job-empty">
+          <span class="empty-icon">🔍</span>
+          Open a job post on Upwork, OnlineJobs.ph, or Indeed to auto-capture it
+          <br /><br />
+          <button class="paste-toggle" id="manual-paste-toggle">or paste manually</button>
+        </div>
+        <div class="hidden" id="job-preview-wrap">
+          <div class="job-preview" id="job-preview-text"></div>
+          <button class="paste-toggle" id="edit-job-btn" style="margin-top: 6px;">Edit</button>
+        </div>
+        <div class="hidden" id="manual-paste-wrap">
+          <textarea
+            class="glass-textarea"
+            id="manual-job-input"
+            placeholder="Paste the job description here..."
+            rows="5"
+          ></textarea>
+          <div class="btn-row" style="margin-top: 8px;">
+            <button class="btn-secondary" id="use-pasted-job">Use this</button>
+            <button class="btn-secondary" id="cancel-paste">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resume Selector Card -->
+    <div class="glass-card fade-in stagger-2" id="resume-card">
+      <div class="glass-card-header">
+        <span class="section-label"><span class="icon">📄</span> Resume</span>
+        <button class="paste-toggle" id="manage-resumes-btn">Manage</button>
+      </div>
+      <select class="glass-select" id="resume-select" disabled>
+        <option value="">No resumes uploaded</option>
+      </select>
+      <div class="tag-container hidden" id="selected-resume-tags"></div>
+    </div>
+
+    <!-- Upload Area (shown when managing resumes) -->
+    <div class="glass-card fade-in hidden" id="resume-manage-card">
+      <div class="glass-card-header">
+        <span class="section-label"><span class="icon">📂</span> Manage Resumes</span>
+        <button class="paste-toggle" id="close-manage-btn">Close</button>
+      </div>
+      <label class="upload-area" for="resume-upload-input">
+        <span class="upload-icon">📤</span>
+        <span class="upload-text">Upload Resume</span>
+        <span class="upload-hint">PDF or DOCX • Max 5 MB</span>
+        <input type="file" id="resume-upload-input" accept=".pdf,.docx" />
+      </label>
+      <div id="resume-list" style="margin-top: 12px;"></div>
+    </div>
+
+    <!-- Generate Button -->
+    <button class="btn-primary fade-in stagger-3" id="generate-btn" disabled>
+      ✨ Generate Cover Letter
+    </button>
+
+    <!-- Output Card -->
+    <div class="glass-card fade-in stagger-4 hidden" id="output-card">
+      <div class="glass-card-header">
+        <span class="section-label"><span class="icon">📝</span> Cover Letter</span>
+        <span class="word-count" id="word-count"></span>
+      </div>
+      <textarea
+        class="glass-textarea"
+        id="output-text"
+        placeholder="Your cover letter will appear here..."
+        rows="8"
+        readonly
+      ></textarea>
+      <div class="btn-row">
+        <button class="btn-secondary" id="copy-btn">📋 Copy</button>
+        <button class="btn-secondary" id="regenerate-btn">🔄 Regenerate</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Tagging Modal -->
+  <div class="modal-overlay" id="tag-modal-overlay">
+    <div class="modal">
+      <h2>Tag Your Resume</h2>
+      <p id="tag-modal-filename"></p>
+      <div class="tag-container" id="tag-options"></div>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="tag-modal-cancel">Cancel</button>
+        <button class="btn-primary" id="tag-modal-save">Save Resume</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Libraries (must load before popup.js) -->
+  <script src="lib/pdf.min.js"></script>
+  <script src="lib/mammoth.browser.min.js"></script>
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

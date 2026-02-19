@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CL Generator — Settings</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="options-body">
+    <div class="options-container">
+
+        <!-- Title -->
+        <h1>⚙️ Settings</h1>
+        <p class="subtitle">Configure your AI provider, API keys, and preferences.</p>
+
+        <!-- Tabs -->
+        <div class="tabs" id="tabs">
+            <button class="tab active" data-tab="provider-tab">AI Provider</button>
+            <button class="tab" data-tab="resumes-tab">Resumes</button>
+            <button class="tab" data-tab="about-tab">About</button>
+        </div>
+
+        <!-- ─── Provider Tab ─── -->
+        <div class="tab-content active" id="provider-tab">
+            <div class="glass-card">
+                <div class="form-group">
+                    <label class="form-label">AI Provider</label>
+                    <select class="glass-select" id="provider-select">
+                        <option value="google">Google Gemini</option>
+                        <option value="openrouter">OpenRouter</option>
+                    </select>
+                    <p class="form-hint">Select where to send AI requests.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Model</label>
+                    <select class="glass-select" id="model-select">
+                        <option value="">Select a model</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">API Key</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="password" class="glass-input" id="api-key-input"
+                            placeholder="Paste your API key here" style="flex: 1;" />
+                        <button class="btn-secondary" id="toggle-key-visibility" title="Show/hide">👁️</button>
+                    </div>
+                    <p class="form-hint" id="api-key-hint">
+                        Keys are stored locally on your device only. Never synced or shared.
+                    </p>
+                </div>
+
+                <button class="btn-primary" id="save-provider-btn">💾 Save Settings</button>
+
+                <div style="margin-top: 16px;">
+                    <p class="form-hint" id="provider-status"></p>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="glass-card" style="margin-top: 12px;">
+                <span class="section-label" style="margin-bottom: 10px; display:block;">🔑 Get an API Key</span>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <a href="https://aistudio.google.com/app/apikey" target="_blank" class="btn-secondary"
+                        style="text-decoration: none; text-align: center;">
+                        Google AI Studio → Get Key
+                    </a>
+                    <a href="https://openrouter.ai/keys" target="_blank" class="btn-secondary"
+                        style="text-decoration: none; text-align: center;">
+                        OpenRouter → Get Key
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── Resumes Tab ─── -->
+        <div class="tab-content" id="resumes-tab">
+            <div class="glass-card">
+                <span class="section-label" style="margin-bottom: 12px; display:block;">
+                    <span class="icon">📄</span> Saved Resumes
+                </span>
+                <div id="options-resume-list"></div>
+
+                <label class="upload-area" for="options-resume-upload" style="margin-top: 16px;">
+                    <span class="upload-icon">📤</span>
+                    <span class="upload-text">Upload Resume</span>
+                    <span class="upload-hint">PDF or DOCX • Max 5 MB</span>
+                    <input type="file" id="options-resume-upload" accept=".pdf,.docx" />
+                </label>
+            </div>
+        </div>
+
+        <!-- ─── About Tab ─── -->
+        <div class="tab-content" id="about-tab">
+            <div class="glass-card">
+                <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">CL Generator</h2>
+                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+                    AI-powered cover letter generator for Upwork, OnlineJobs.ph, and Indeed.
+                    Uses the KISS method by Molongski to create short, impactful cover letters
+                    that focus on the client's needs.
+                </p>
+
+                <div style="margin-top: 16px;">
+                    <p style="font-size: 12px; color: var(--text-muted);">Version 1.0.0</p>
+                    <p style="font-size: 12px; color: var(--text-muted);">Manifest V3 • Chrome Extension</p>
+                </div>
+
+                <div style="margin-top: 16px;">
+                    <span class="section-label" style="margin-bottom: 8px; display:block;">Supported Platforms</span>
+                    <div style="display: flex; gap: 8px;">
+                        <span class="badge badge-upwork">Upwork</span>
+                        <span class="badge badge-indeed">Indeed</span>
+                        <span class="badge badge-onlinejobs">OnlineJobs.ph</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tagging Modal (shared structure) -->
+    <div class="modal-overlay" id="options-tag-modal-overlay">
+        <div class="modal">
+            <h2>Tag Your Resume</h2>
+            <p id="options-tag-modal-filename"></p>
+            <div class="tag-container" id="options-tag-options"></div>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="options-tag-modal-cancel">Cancel</button>
+                <button class="btn-primary" id="options-tag-modal-save">Save Resume</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Libraries for resume parsing -->
+    <script src="lib/pdf.min.js"></script>
+    <script src="lib/mammoth.browser.min.js"></script>
+    <script src="options.js" type="module"></script>
+</body>
+
+</html>
